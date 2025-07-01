@@ -1,0 +1,51 @@
+/**
+ * @param {string[][]} equations
+ * @param {number[]} values
+ * @param {string[][]} queries
+ * @return {number[]}
+ */
+var calcEquation = function(equations, values, queries) {
+const sign=[]
+while(equations.length){
+  let nextQueue=[],nextVQueue=[],map=new Map(),queue=equations.shift(),v=values.shift()
+  map.set(queue[1],1)
+  map.set(queue[0],v)
+  sign.push(map)
+  while(queue.length){
+    while(queue.length){
+     let cur=queue.shift()
+     let i=0
+     while(i<equations.length){
+       if(equations[i].includes(cur)){
+         if(equations[i][0]===cur){
+           map.set(equations[i][1],map.get(cur)/values[i])
+           nextQueue.push(equations[i][1])
+         }else{
+           map.set(equations[i][0],map.get(cur)*values[i])
+           nextQueue.push(equations[i][0])
+         }
+          equations.splice(i,1)
+          values.splice(i,1)
+       }else{
+         i++
+       }
+     }
+    }
+    queue=nextQueue
+  }
+}
+let res=[]
+for(let [left,right] of queries){
+
+  let leftIndex=sign.findIndex((item)=>item.has(left))
+  let rightIndex=sign.findIndex((item)=>item.has(right))
+  if(leftIndex!==rightIndex||leftIndex<0||rightIndex<0){
+    res.push(-1)
+  }else{
+    res.push(sign[leftIndex].get(left)/sign[leftIndex].get(right))
+  }
+}
+
+return res
+ 
+};

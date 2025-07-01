@@ -1,0 +1,40 @@
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {number}
+ */
+function quickSort(arr, l = 0, r = arr.length - 1, target) {
+    function partition(arr, l, r) {
+        // 以l为partition
+        let index = l + 1;
+        for (let i = index; i <= r; i++) {
+            if (arr[i] <= arr[l]) {
+                [arr[i], arr[index]] = [arr[index], arr[i]];
+                index++;
+            }
+        }
+        [arr[l], arr[index - 1]] = [arr[index - 1], arr[l]];
+        return index - 1;
+    }
+    // 正经快排不需要这个..  比如l和r都是3 排序不用排了 因为就一个数
+    // 但是我们现在要找那个值, 所以这时候需要进去  把值返回掉
+    if (l <= r) {
+        const random = ((Math.random() * (r - l + 1)) >> 0) + l;
+        [arr[l], arr[random]] = [arr[random], arr[l]];
+
+        let result = partition(arr, l, r);
+        // quickSort(arr, l, result - 1);
+        // quickSort(arr, result + 1, r);
+        if (result == target) {
+            return arr[result]
+        } else if (result < target) {
+            return quickSort(arr, result + 1, r, target);
+        } else {
+            return quickSort(arr, l, result - 1, target);
+        }
+    }
+}
+var findKthLargest = function(nums, k) {
+    return quickSort(nums, 0, nums.length - 1, nums.length - k);
+};
+

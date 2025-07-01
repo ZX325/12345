@@ -1,0 +1,5 @@
+var calculate = function(s) {
+    var Fn = Function;
+    return new Fn('return ' + s)()
+};
+

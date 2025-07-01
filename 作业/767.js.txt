@@ -1,0 +1,34 @@
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var reorganizeString = function(s) {
+	const countArr = Array(26).fill(0);
+    const len = s.length;
+    let max = 0, bigS = 0, limit = (len+1) >> 1;
+    for(let i = 0; i < len; i++){
+		countArr[s[i].charCodeAt() - 'a'.charCodeAt()]++;
+        if(countArr[s[i].charCodeAt() - 'a'.charCodeAt()] > max){
+			max = countArr[s[i].charCodeAt() - 'a'.charCodeAt()];
+            bigS = s[i].charCodeAt() - 'a'.charCodeAt();
+            if(max > limit) return '';
+		}
+	}
+    const res = Array(len).fill('');
+    let index = 0;
+    while(countArr[bigS]-- > 0) {
+		res[index] = String.fromCharCode(bigS + 'a'.charCodeAt());
+        index += 2;
+	}
+    for(let i = 0; i < countArr.length; i++){
+		while(countArr[i]-- > 0) {
+			if(index >= res.length){
+				index = 1;
+			}
+            res[index] = String.fromCharCode(i+'a'.charCodeAt());
+            index += 2;
+		}
+	}
+    return res.join('');
+};
+

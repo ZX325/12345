@@ -1,0 +1,29 @@
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var calculate = function(s) {
+    let i, len = s.length, stack = [], operation = '+', num = 0;
+    for(i = 0; i < len; i++) {
+        // 如果不是NaN，即是整数
+        if(!isNaN(Number(s[i])) && s[i] !== ' ') {
+            num = num * 10 + (s[i] - '0');
+        }
+        if(isNaN(Number(s[i])) || i === len - 1){
+            switch(operation) {
+                case '+': stack.push(num); break;
+                case '-': stack.push(-num); break;
+                case '*': stack.push(stack.pop() * num); break;
+                case '/': stack.push(~~(stack.pop() / num)); break;
+            }
+            operation = s[i];
+            num = 0;
+        }
+    }
+    let result = 0;
+    while(stack.length) {
+        result += stack.pop();
+    }
+    return result;
+};
+
