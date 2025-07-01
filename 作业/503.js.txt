@@ -1,0 +1,16 @@
+var nextGreaterElements = function (nums) {
+    // 1. 结果数组默认全部填充 -1，栈中剩余的元素找不到「下一个更大的元素」，为 -1
+    const stack = [], len = nums.length, res = new Array(len).fill(-1);
+
+    // 2. 找到下一个更大的元素
+    for (let i = 0; i < len * 2; i++) {
+        let num = nums[i % len];
+        while (stack.length && num > nums[stack[stack.length - 1]]) {
+            res[stack.pop()] = num;
+        }
+        stack.push(i % len);
+    }
+
+    return res;
+};
+

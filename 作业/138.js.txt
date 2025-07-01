@@ -1,0 +1,31 @@
+var copyRandomList = function(head) {
+    if(head == null) return head
+    let p = head
+    let q = null
+    // 每个节点复制一份出来 及1->2 === 1->1->2->2
+    while(p) {
+        q = new Node(p.val, p.next, p.random)
+        p.next = q
+        p = q.next
+    }
+    q = head.next
+    // 修正复制出来的random指针
+    while(q) {
+        if(q.random) q.random = q.random.next
+        q = q.next
+        if(q) q = q.next
+    }
+    // 保存复制出来的链表变量
+    let new_head = head.next         
+    p = head
+    // 拆链表 即1->1->2->2 拆 1->2 1->2
+    while(p) {
+        let q = p.next
+        p.next = q.next
+        if(p.next) q.next = p.next.next
+        p = p.next
+    }
+    // 最后返回复制的那一个链表
+    return new_head
+};
+

@@ -1,0 +1,40 @@
+var nextPermutation = function(nums, n = nums.length) {
+  if (!n) return []
+  let p = n - 1, p1 = n - 1, nearIndex = 0, minD = Infinity
+  while(p > 0) {
+    if (nums[p] > nums[p - 1]) break
+    p -- // p为末尾开始算起的第一个非递减序列的起始值
+  }
+  if (p === 0) {
+    nums.sort((a, b) => a - b)
+    return nums
+  }
+  while (p1 > p - 1) {
+    if (minD > nums[p1] - nums[p - 1] && nums[p1] > nums[p - 1]) {
+      minD = nums[p1] - nums[p - 1]
+      nearIndex = p1
+    }
+    p1 --
+  }
+  // 交换邻近大值
+  let tmp = nums[nearIndex]
+  nums[nearIndex] = nums[p - 1]
+  nums[p - 1] = tmp
+
+  for (let i = p; i < n; i++) { // 在区间i ~ n - 1做插排
+    let min = Infinity, k = i
+    for (let j = i; j < n; j++) {
+      if (min > nums[j]) {
+        min = nums[j]
+        k = j
+      }
+    }
+    if (k !== i) {
+      nums[k] = nums[i]
+      nums[i] = min
+    }
+  }
+  return nums
+};
+
+

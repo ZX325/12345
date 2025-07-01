@@ -1,0 +1,12 @@
+var firstMissingPositive = function(nums) {
+  for (const num of nums)
+    if (typeof nums[+num - 1] !== 'undefined')
+      nums[+num - 1] = '' + nums[+num - 1]
+  for (let i = 0; i < nums.length; i++)
+    if (typeof nums[i] === 'number')
+      return i + 1
+  return nums.length + 1
+};
+
+
+

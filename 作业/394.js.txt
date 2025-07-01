@@ -1,0 +1,31 @@
+/**
+ * @param {string} s
+ * @return {string}
+ */
+ //双栈
+ //如果是字母直接累加到res，是数字直接计算倍数，遇到[说明要把现在的数据缓存起来，
+ //等待[后面的内容，遇到]说明叠加内容结束，即可把之前缓存的数据拿出，和现在的合并
+var decodeString = function(s) {
+    let numstack = [];
+    let strstack = [];
+    let num = 0;
+    let res = '';
+    for(let i=0;i<s.length;i++){
+        if(!isNaN(s[i])){
+            num  = 10*num + Number(s[i]);
+        }else if(s[i] === '['){
+            strstack.push(res);
+            numstack.push(num);
+            num = 0;
+            res = '';
+
+        }else if(s[i] === ']'){
+            const multi  = numstack.pop();
+            res = strstack.pop() + res.repeat(multi);
+        }else {
+            res +=s[i];
+        }
+    }
+    return res;
+};
+

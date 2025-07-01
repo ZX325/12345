@@ -1,0 +1,26 @@
+/**
+ * @param {string} num
+ * @param {number} k
+ * @return {string}
+ */
+var removeKdigits = function (num, k) {
+    let len = num.length;
+    
+    let stack = [];
+
+    for (let i = 0; i < len; i++) {
+        while (stack.length && stack[stack.length - 1] > num[i] && k) {
+            stack.pop();
+            k--;
+        }
+        stack.push(num[i])
+    }
+    while (k) {
+        stack.pop();
+        k--;
+    }
+    while (stack.length && stack[0] == '0') {
+        stack.shift();
+    }
+    return stack.join('') || '0'
+};

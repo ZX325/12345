@@ -1,0 +1,18 @@
+var deleteDuplicates = function(head) {
+    const set = new Set()
+    const headnode = new ListNode(0,head)
+    let prenode = headnode
+    let currentnode = head
+    while(currentnode){
+        if(set.has(currentnode.val)){
+            prenode.next = currentnode.next
+            currentnode = currentnode.next
+        }else{
+            set.add(currentnode.val)
+            prenode = currentnode
+            currentnode = currentnode.next
+        }
+    }
+    return headnode.next
+};
+

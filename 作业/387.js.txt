@@ -1,0 +1,28 @@
+var firstUniqChar = function (s) {
+  // 解法二
+  if (s === '' || s.length < 1) {return -1;}
+  let set = new Set();
+  for (let i = 0 ;i < s.length;i++) {
+    // includes第二个参数可选。从当前字符串的哪个索引位置开始搜寻子字符串，默认值为0。
+    if (!s.includes(s[i], i + 1) && !set.has(s[i])) {
+      return i;
+    } else {
+      set.add(s[i]);
+    }
+  }
+  return -1;
+  // 解法一
+  // if (s === '' || s.length < 1) {return -1;}
+  // let map = {};
+  // for (let i = 0 ;i < s.length;i++) {
+  //   map[s[i]] === undefined ? map[s[i]] = 0 : map[s[i]]++;
+  // }
+  // for (const key in map) {
+  //   if (map[key] === 0) {
+  //     return s.indexOf(key);
+  //   }
+  // }
+  // return -1;
+};
+
+

@@ -1,0 +1,17 @@
+var addTwoNumbers = function(l1, l2) {
+  let item = {}
+  let final = item
+  let a = 0
+  while (l1 || l2 || a) {
+      let l = l1?.val ?? 0
+      let r = l2?.val ?? 0
+      a += (l + r)
+      l1 = l1?.next
+      l2 = l2?.next
+      item.next = {val: a%10, next: null}
+      a = ~~(a / 10)
+      item = item.next
+  }
+  return final.next
+};
+

@@ -1,0 +1,23 @@
+var convert = function(s, numRows) {
+    if(numRows === 1) return s;
+    let res = ''
+    for(let i = 0; i < numRows; i++) {
+        if(i === 0) {
+            for(let j = 0; j < s.length; j += (numRows * 2 - 2)) {
+                res += s.charAt(j);
+            }
+        } else if(i === numRows - 1) {
+            for(let k = numRows - 1; k < s.length; k += (numRows * 2 - 2)) {
+                res += s.charAt(k);
+            }
+        } else {
+            for(let n = i; n < s.length; n += (numRows * 2 - 2)) {
+                res = res + s.charAt(n) + s.charAt(n + (numRows * 2 - 2) - 2 * i);
+            }
+        }
+    }
+
+    return res;
+};
+
+

@@ -1,0 +1,21 @@
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function(nums, target) {
+    var array=[]
+    for(let i=0;i<nums.length;i++){
+        let left=nums[i]  //左手握着 2
+        //右手把剩下的值都握一遍
+        for(let j=i+1;j<nums.length;j++){
+            let right=nums[j]  //右手握着7
+            if(left+right==target){
+                array.push(i)
+                array.push(j)
+                return array
+            }
+        }    
+   }
+};
+

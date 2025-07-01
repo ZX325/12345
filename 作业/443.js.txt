@@ -1,0 +1,45 @@
+/**
+ * @param {character[]} chars
+ * @return {number}
+ * 思想：
+ * 1、通过字符穿来存储字符和字符出现的次数
+ * 2、字符赋值给charts
+ * 3、charts删减压缩后的多余空间
+ * 
+ * 时间复杂度：O(N),空间复杂度：O(N)
+ */
+ var compress = function(chars) {
+    let res = ''
+    let preChar = chars[0]
+    let count = 1
+    // 通过字符穿来存储字符和字符出现的次数
+    for(let i=1;i<chars.length;i++) {
+        if(chars[i] != preChar) {
+            res += preChar
+            if(count > 1) res += count
+            preChar = chars[i]
+            count = 1
+        }else {
+            count++
+        }
+    }
+
+    // 补上最后一个字符
+    res += preChar
+    if(count > 1) res += count
+   
+
+    // 字符赋值给charts
+    for(let i=0;i<res.length;i++) {
+        chars[i] = res[i]
+    }
+
+    // charts删减压缩后的多余空间
+    let sub = chars.length - res.length
+    while (sub > 0) {
+        chars.pop()
+        sub--
+    }
+    return chars.length
+
+};

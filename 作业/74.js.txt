@@ -1,0 +1,33 @@
+var searchMatrix = function (matrix, target) {
+    let len = matrix.length
+    let l = 0
+    let r = len
+    if (!len) return false
+    while (l < r) {
+        let mid = Math.floor((l + r) / 2)
+        let midtarget = matrix[mid][0]
+        if (target === midtarget) return true
+        if (target > midtarget) {
+            l = mid + 1
+        } else {
+            r = mid
+        }
+    }
+    if (l - 1 < 0) return false
+    let s = matrix[l - 1]
+    let ml = 0
+    let mr = s.length
+    while (ml < mr) {
+        let mid = Math.floor((ml + mr) / 2)
+        let midtarget = s[mid]
+        if (target === midtarget) return true
+        if (target > midtarget) {
+            ml = mid + 1
+        } else {
+            mr = mid
+        }
+    }
+    return false
+};
+
+
